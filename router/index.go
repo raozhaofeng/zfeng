@@ -8,13 +8,14 @@ import (
 )
 
 type Router struct {
-	redisPool          *redis.Pool
-	httpRouter         *httprouter.Router                                                      // 路由实例
-	CallbackAccessFunc func(accessType int64, handle *Handle, r *http.Request, claims *Claims) //	访问日志
+	Id                 int64                                                                 //	路由ID
+	redisPool          *redis.Pool                                                           //	缓存池子
+	httpRouter         *httprouter.Router                                                    // 路由实例
+	CallbackAccessFunc func(routerId int64, handle *Handle, r *http.Request, claims *Claims) //	访问日志
 }
 
 // NewRoute 创建路由
-func NewRoute(redisPool *redis.Pool) *Router {
+func NewRoute(id int64, redisPool *redis.Pool) *Router {
 	httpRouter := httprouter.New()
 	// 开启跨域请求
 	httpRouter.GlobalOPTIONS = http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
@@ -30,6 +31,7 @@ func NewRoute(redisPool *redis.Pool) *Router {
 	}
 
 	return &Router{
+		Id:         id,
 		redisPool:  redisPool,
 		httpRouter: httpRouter,
 	}
@@ -42,7 +44,7 @@ func (c *Router) ServeFiles(filePath string) *Router {
 }
 
 // SetCallbackAccessFunc 设置访问日志函数
-func (c *Router) SetCallbackAccessFunc(fun func(accessType int64, handle *Handle, r *http.Request, claims *Claims)) *Router {
+func (c *Router) SetCallbackAccessFunc(fun func(routerId int64, handle *Handle, r *http.Request, claims *Claims)) *Router {
 	c.CallbackAccessFunc = fun
 	return c
 }

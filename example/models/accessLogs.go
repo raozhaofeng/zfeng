@@ -79,7 +79,7 @@ func (c *AccessLogs) UniqueVisitor(adminIds []string, betweenTime []int64) int64
 }
 
 // RouteAccessFunc 路由日志方法
-func RouteAccessFunc(accessType int64, handleParams *router.Handle, r *http.Request, claims *router.Claims) {
+func RouteAccessFunc(routerId int64, handleParams *router.Handle, r *http.Request, claims *router.Claims) {
 	fmt.Println(" -> ", handleParams.Name, handleParams.Route, handleParams.Method, time.Now().Format("2006-01-02 15:04:05"))
 	//	验证的路由， 没有验证的路由， 后端跟前端
 	var adminId, userId int64
@@ -103,6 +103,6 @@ func RouteAccessFunc(accessType int64, handleParams *router.Handle, r *http.Requ
 	_, _ = NewAccessLogs(nil).
 		Field("admin_id", "user_id", "type", "name", "ip4", "user_agent", "lang", "route", "data", "created_at").
 		Value("?", "?", "?", "?", "INET_ATON(?)", "?", "?", "?", "?", "?").
-		Args(adminId, userId, accessType, handleParams.Name, utils.GetUserRealIP(r), r.Header.Get("User-Agent"), r.Header.Get("Accept-Language"), handleParams.Route, data, nowTime).
+		Args(adminId, userId, routerId, handleParams.Name, utils.GetUserRealIP(r), r.Header.Get("User-Agent"), r.Header.Get("Accept-Language"), handleParams.Route, data, nowTime).
 		Insert()
 }
