@@ -2,8 +2,8 @@ package models
 
 import (
 	"database/sql"
-	"github.com/raozhaofeng/beego/db"
-	"github.com/raozhaofeng/beego/db/define"
+	"github.com/raozhaofeng/zfeng/database"
+	"github.com/raozhaofeng/zfeng/database/define"
 )
 
 // AdminAuthAssignment 模型
@@ -21,7 +21,7 @@ type AdminAuthAssignmentsAttrs struct {
 // NewAdminAuthAssignment 创建模型
 func NewAdminAuthAssignment(tx *sql.Tx) *AdminAuthAssignment {
 	return &AdminAuthAssignment{
-		db.Manager.NewInterfaceDb(tx).Table("admin_auth_assignment"),
+		database.DbPool.NewDb(tx).Table("admin_auth_assignment"),
 	}
 }
 

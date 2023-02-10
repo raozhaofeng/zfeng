@@ -3,9 +3,9 @@ package models
 import (
 	"database/sql"
 	"fmt"
-	"github.com/raozhaofeng/beego/db"
-	"github.com/raozhaofeng/beego/db/define"
-	"github.com/raozhaofeng/beego/utils"
+	"github.com/raozhaofeng/zfeng/database"
+	"github.com/raozhaofeng/zfeng/database/define"
+	"github.com/raozhaofeng/zfeng/utils"
 )
 
 type AdminAuthItemAttrs struct {
@@ -37,7 +37,7 @@ type AdminAuthItem struct {
 
 func NewAdminAuthItem(tx *sql.Tx) *AdminAuthItem {
 	return &AdminAuthItem{
-		db.Manager.NewInterfaceDb(tx).Table("admin_auth_item"),
+		database.DbPool.NewDb(tx).Table("admin_auth_item"),
 	}
 }
 

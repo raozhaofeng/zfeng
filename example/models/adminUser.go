@@ -3,10 +3,10 @@ package models
 import (
 	"database/sql"
 	"encoding/json"
-	"github.com/raozhaofeng/beego/db"
-	"github.com/raozhaofeng/beego/db/define"
-	"github.com/raozhaofeng/beego/router"
-	"github.com/raozhaofeng/beego/utils"
+	"github.com/raozhaofeng/zfeng/database"
+	"github.com/raozhaofeng/zfeng/database/define"
+	"github.com/raozhaofeng/zfeng/router"
+	"github.com/raozhaofeng/zfeng/utils"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -46,7 +46,7 @@ type AdminUser struct {
 
 func NewAdminUser(tx *sql.Tx) *AdminUser {
 	return &AdminUser{
-		db.Manager.NewInterfaceDb(tx).Table("admin_user"),
+		database.DbPool.NewDb(tx).Table("admin_user"),
 	}
 }
 

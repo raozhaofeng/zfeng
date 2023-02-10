@@ -3,9 +3,9 @@ package models
 import (
 	"database/sql"
 	"encoding/json"
-	"github.com/raozhaofeng/beego/db"
-	"github.com/raozhaofeng/beego/db/define"
-	"github.com/raozhaofeng/beego/utils"
+	"github.com/raozhaofeng/zfeng/database"
+	"github.com/raozhaofeng/zfeng/database/define"
+	"github.com/raozhaofeng/zfeng/utils"
 )
 
 // AdminMenu 模型
@@ -47,7 +47,7 @@ type AdminMenuList struct {
 // NewAdminMenu 创建模型
 func NewAdminMenu(tx *sql.Tx) *AdminMenu {
 	return &AdminMenu{
-		db.Manager.NewInterfaceDb(tx).Table("admin_menu"),
+		database.DbPool.NewDb(tx).Table("admin_menu"),
 	}
 }
 

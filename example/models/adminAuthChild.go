@@ -2,9 +2,9 @@ package models
 
 import (
 	"database/sql"
-	"github.com/raozhaofeng/beego/db"
-	"github.com/raozhaofeng/beego/db/define"
-	"github.com/raozhaofeng/beego/utils"
+	"github.com/raozhaofeng/zfeng/database"
+	"github.com/raozhaofeng/zfeng/database/define"
+	"github.com/raozhaofeng/zfeng/utils"
 	"strings"
 )
 
@@ -23,7 +23,7 @@ type AdminAuthChildAttrs struct {
 // NewAdminAuthChild 创建模型
 func NewAdminAuthChild(tx *sql.Tx) *AdminAuthChild {
 	return &AdminAuthChild{
-		db.Manager.NewInterfaceDb(tx).Table("admin_auth_child"),
+		database.DbPool.NewDb(tx).Table("admin_auth_child"),
 	}
 }
 

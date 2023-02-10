@@ -3,8 +3,8 @@ package models
 import (
 	"database/sql"
 	"encoding/json"
-	"github.com/raozhaofeng/beego/db"
-	"github.com/raozhaofeng/beego/db/define"
+	"github.com/raozhaofeng/zfeng/database"
+	"github.com/raozhaofeng/zfeng/database/define"
 )
 
 const (
@@ -49,7 +49,7 @@ type AdminSetting struct {
 // NewAdminSetting 创建数据库模型
 func NewAdminSetting(tx *sql.Tx) *AdminSetting {
 	return &AdminSetting{
-		db.Manager.NewInterfaceDb(tx).Table("admin_setting"),
+		database.DbPool.NewDb(tx).Table("admin_setting"),
 	}
 }
 
