@@ -160,6 +160,8 @@ github.com/raozhaofeng/zfeng v1.0.3 h1:97Qy5ksTqEPOw8sgUPajS+ZmVCQSLPJPiQinCqRka
 github.com/raozhaofeng/zfeng v1.0.3/go.mod h1:Pa8uCSq7XNmpTCHew3+XZJLSY3bWfq2ookakgm22lNo=
 github.com/raozhaofeng/zfeng v1.0.4 h1:6XJb5mum9jbztuM6X4Pj7tKtlhS6J93fVIvBeqCZWt8=
 github.com/raozhaofeng/zfeng v1.0.4/go.mod h1:Pa8uCSq7XNmpTCHew3+XZJLSY3bWfq2ookakgm22lNo=
+github.com/raozhaofeng/zfeng v1.0.5 h1:QN5b7M3Xs6k8ZK6ycz0OFQI5A4mvmzuH2BLKNVs2g5c=
+github.com/raozhaofeng/zfeng v1.0.5/go.mod h1:Pa8uCSq7XNmpTCHew3+XZJLSY3bWfq2ookakgm22lNo=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/spf13/afero v1.9.3 h1:41FoI0fD7OR7mGcKE/aOiLkGreyf8ifIOQmJANWogMk=
 github.com/spf13/afero v1.9.3/go.mod h1:iUV7ddyEEZPO5gA3zD4fJt6iStLlL+Lg4m2cihcDf8Y=

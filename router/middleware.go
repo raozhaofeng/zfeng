@@ -52,7 +52,7 @@ func (c *Router) middlewareToken(handle *Handle, next httprouter.Handle) httprou
 
 		//	正常返回
 		if c.CallbackAccessFunc != nil {
-			c.CallbackAccessFunc(handle, request, claims)
+			c.CallbackAccessFunc(c.Id, handle, request, claims)
 		}
 		next(writer, request, params)
 	}

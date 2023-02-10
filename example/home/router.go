@@ -1,7 +1,7 @@
 package home
 
 import (
-	"github.com/raozhaofeng/zfeng/example/home/controllers/index"
+	"basic/home/controllers/index"
 	"github.com/raozhaofeng/zfeng/router"
 )
 
