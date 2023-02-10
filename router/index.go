@@ -41,6 +41,12 @@ func (c *Router) ServeFiles(filePath string) *Router {
 	return c
 }
 
+// SetCallbackAccessFunc 设置访问日志函数
+func (c *Router) SetCallbackAccessFunc(fun func(handle *Handle, r *http.Request, claims *Claims)) *Router {
+	c.CallbackAccessFunc = fun
+	return c
+}
+
 // ListenAndServe 监听服务
 func (c *Router) ListenAndServe(addr string) {
 	fmt.Println("Listen", addr, "Successful")
