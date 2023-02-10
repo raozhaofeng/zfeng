@@ -1,8 +1,9 @@
 package main
 
 import (
+	"basic/home"
+	"basic/models"
 	"github.com/raozhaofeng/zfeng"
-	"github.com/raozhaofeng/zfeng/example/home"
 )
 
 func main() {
@@ -11,6 +12,8 @@ func main() {
 	go adminApp.ListenAndServe("0.0.0.0:8001")
 
 	// 启动前台接口
-	homeApp := zfeng.NewApp("./").SetRouteHandle(home.Router())
-	homeApp.ListenAndServe("0.0.0.0:8002")
+	homeApp := zfeng.NewApp("./")                         //	初始化
+	homeApp.SetRouteHandle(home.Router())                 //	载入前台路由
+	homeApp.SetCallbackAccessFunc(models.RouteAccessFunc) //	设置访问日志
+	homeApp.ListenAndServe("0.0.0.0:8002")                //	启动监听
 }
