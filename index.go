@@ -15,7 +15,7 @@ var (
 )
 
 // NewApp 创建框架对象
-func NewApp(confPath string) *router.Router {
+func NewApp(id int64, confPath string) *router.Router {
 	// 读取配置文件
 	ConfInfo = conf.ReadConfigFile(confPath)
 
@@ -32,5 +32,5 @@ func NewApp(confPath string) *router.Router {
 	validator.InitializeValidator()
 
 	// 启动线程
-	return router.NewRoute(cache.RedisPool)
+	return router.NewRoute(id, cache.RedisPool)
 }
