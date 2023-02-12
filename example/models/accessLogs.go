@@ -2,7 +2,6 @@ package models
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/raozhaofeng/zfeng/database"
 	"github.com/raozhaofeng/zfeng/database/define"
 	"github.com/raozhaofeng/zfeng/logs"
@@ -80,7 +79,6 @@ func (c *AccessLogs) UniqueVisitor(adminIds []string, betweenTime []int64) int64
 
 // RouteAccessFunc 路由日志方法
 func RouteAccessFunc(routerId int64, handleParams *router.Handle, r *http.Request, claims *router.Claims) {
-	fmt.Println(" -> ", handleParams.Name, handleParams.Route, handleParams.Method, time.Now().Format("2006-01-02 15:04:05"))
 	//	验证的路由， 没有验证的路由， 后端跟前端
 	var adminId, userId int64
 	if claims != nil {
@@ -99,7 +97,7 @@ func RouteAccessFunc(routerId int64, handleParams *router.Handle, r *http.Reques
 	}
 	nowTime := time.Now().Unix()
 
-	logs.Logger.Info(" -> ", zap.String("name", handleParams.Name), zap.String("method", handleParams.Method), zap.String("router", handleParams.Route))
+	logs.Logger.Debug("access", zap.String("name", handleParams.Name), zap.String("method", handleParams.Method), zap.String("router", handleParams.Route), zap.String("data", data))
 	_, _ = NewAccessLogs(nil).
 		Field("admin_id", "user_id", "type", "name", "ip4", "user_agent", "lang", "route", "data", "created_at").
 		Value("?", "?", "?", "?", "INET_ATON(?)", "?", "?", "?", "?", "?").

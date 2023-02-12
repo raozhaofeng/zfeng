@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	zfeng.NewApp("./")
+	zfeng.NewApp(1, "./")
 
 	for {
 		fmt.Println("1) 重置数据库")
