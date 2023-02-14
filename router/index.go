@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gomodule/redigo/redis"
 	"github.com/julienschmidt/httprouter"
+	"github.com/raozhaofeng/zfeng/locales"
 	"net/http"
 )
 
@@ -35,6 +36,19 @@ func NewRoute(id int64, redisPool *redis.Pool) *Router {
 		redisPool:  redisPool,
 		httpRouter: httpRouter,
 	}
+}
+
+// InitializationLocales 初始化语言
+func (c *Router) InitializationLocales(localesList map[int64]map[string]map[string]string) *Router {
+	rds := c.redisPool.Get()
+	defer rds.Close()
+
+	for adminId, aliasLocales := range localesList {
+		for alias, locale := range aliasLocales {
+			locales.Manager.SetAdminLocalesAll(rds, adminId, alias, locale)
+		}
+	}
+	return c
 }
 
 // InitializationAdminRole 初始化管理路由
