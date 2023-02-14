@@ -37,6 +37,28 @@ func NewRoute(id int64, redisPool *redis.Pool) *Router {
 	}
 }
 
+// InitializationAdminRole 初始化管理路由
+func (c *Router) InitializationAdminRole(adminRolesRouter map[int64][]string) *Router {
+	rds := c.redisPool.Get()
+	defer rds.Close()
+
+	for adminId, rolesRouter := range adminRolesRouter {
+		TokenManager.SetTokenAdminRolesRouter(rds, adminId, rolesRouter)
+	}
+	return c
+}
+
+// InitializationTokenParams 初始化Token参数
+func (c *Router) InitializationTokenParams(tokenParamsList map[string]*TokenParams) *Router {
+	rds := c.redisPool.Get()
+	defer rds.Close()
+
+	for tokenKey, tokenParams := range tokenParamsList {
+		TokenManager.SetTokenParams(rds, tokenKey, tokenParams)
+	}
+	return c
+}
+
 // ServeFiles 开启静态资源
 func (c *Router) ServeFiles(filePath string) *Router {
 	c.httpRouter.ServeFiles("/"+filePath+"/*filepath", http.Dir("./"+filePath))

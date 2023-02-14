@@ -31,6 +31,9 @@ func NewApp(id int64, confPath string) *router.Router {
 	// 实例化验证器
 	validator.InitializeValidator()
 
+	// 初始化Token管理
+	router.TokenManager = &router.Token{}
+
 	// 启动线程
 	return router.NewRoute(id, cache.RedisPool)
 }

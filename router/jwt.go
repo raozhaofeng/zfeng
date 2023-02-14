@@ -42,6 +42,20 @@ type TokenParams struct {
 type Token struct {
 }
 
+// InitializationToken 初始化Token
+func InitializationToken(rds redis.Conn, tokenParamsList map[string]*TokenParams, adminRolesRouter map[int64][]string) {
+	TokenManager = &Token{}
+	//	初始化设置Token参数
+	for tokenKey, tokenParams := range tokenParamsList {
+		TokenManager.SetTokenParams(rds, tokenKey, tokenParams)
+	}
+
+	// 初始化设置管理路由列表
+	for adminId, rolesRouter := range adminRolesRouter {
+		TokenManager.SetTokenAdminRolesRouter(rds, adminId, rolesRouter)
+	}
+}
+
 // Generate 生成Token
 func (c *Token) Generate(rds redis.Conn, tokenKey string, adminId, userId int64) string {
 	tokenParams := c.GetTokenParams(rds, tokenKey)
