@@ -214,6 +214,29 @@ func (c *Token) GetContextClaims(r *http.Request) *Claims {
 	return r.Context().Value(ClaimsKey).(*Claims)
 }
 
+// GetHeaderClaims 获取头信息中Token信息
+func (c *Token) GetHeaderClaims(rds redis.Conn, r *http.Request) *Claims {
+	claims := &Claims{}
+
+	tokenStr, tokenKey := c.GetHeaderTokenAndTokenKey(r)
+	if tokenStr == "" || tokenKey == "" {
+		return nil
+	}
+
+	// 验证JWT TokenStr
+	tokenParams := c.GetTokenParams(rds, tokenKey)
+	token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
+		token.Method = jwt.SigningMethodHS256
+		return []byte(tokenParams.Key), nil
+	})
+
+	if err != nil || token == nil || !token.Valid {
+		return nil
+	}
+
+	return claims
+}
+
 // GetHeaderTokenAndTokenKey 获取头信息Token参数
 func (c *Token) GetHeaderTokenAndTokenKey(r *http.Request) (string, string) {
 	tokenStr := r.Header.Get("Token")
