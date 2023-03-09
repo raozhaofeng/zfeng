@@ -208,6 +208,9 @@ func (c *Token) GetTokenValueKey(adminId, userId int64) string {
 
 // GetContextClaims 获取当前Claims
 func (c *Token) GetContextClaims(r *http.Request) *Claims {
+	if r.Context().Value(ClaimsKey) == nil {
+		return nil
+	}
 	return r.Context().Value(ClaimsKey).(*Claims)
 }
 
